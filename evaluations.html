@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluations - Mavvrik EvalLab</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+            <button class="btn btn-sm btn-outline-light me-2 d-md-none" type="button" id="mobileSidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" 
+                     alt="CloudWiz Logo" 
+                     class="me-2 navbar-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="bi bi-robot fs-3 me-2" style="display:none;"></i>
+                <span class="fw-bold">EvalLab</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-label="Notifications">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-5 me-1"></i>
+                            <span>User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row g-0" id="mainRow">
+            <!-- Left Sidebar -->
+            <div class="sidebar-wrapper" id="sidebarWrapper">
+                <nav id="sidebar" class="bg-light sidebar">
+                    <div class="position-sticky pt-3">
+                        <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+                            <h6 class="mb-0 text-muted sidebar-title" id="sidebarTitle">Navigation</h6>
+                            <button class="btn btn-sm btn-outline-secondary" id="sidebarCollapseBtn" 
+                                    aria-label="Toggle sidebar" title="Collapse Sidebar">
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                        </div>
+                        
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">
+                                    <i class="bi bi-folder me-2"></i>
+                                    <span class="nav-text">Projects</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="datasets.html">
+                                    <i class="bi bi-database me-2"></i>
+                                    <span class="nav-text">Datasets</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="evaluations.html" aria-current="page">
+                                    <i class="bi bi-clipboard-check me-2"></i>
+                                    <span class="nav-text">Evaluations</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html?section=models">
+                                    <i class="bi bi-cpu me-2"></i>
+                                    <span class="nav-text">Models</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html?section=settings">
+                                    <i class="bi bi-gear me-2"></i>
+                                    <span class="nav-text">Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <hr class="my-3 sidebar-divider">
+
+                        <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">
+                            <span>Recent Evaluations</span>
+                        </h6>
+                        <ul class="nav flex-column" id="recentEvaluations">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content-wrapper" id="mainContentWrapper">
+                <main class="px-md-4" id="mainContent">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Evaluations</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-2" id="toggleSidebar"
+                                    aria-label="Toggle sidebar" title="Toggle Sidebar (Ctrl+B)">
+                                <i class="bi bi-layout-sidebar-inset"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" id="newEvaluationBtn">
+                                <i class="bi bi-plus-lg me-1"></i>New Evaluation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Three Column Layout -->
+                    <div class="row g-3">
+                        <!-- Column 1: Evaluation List + Prompt Editor -->
+                        <div class="col-lg-4">
+                            <div class="card mb-3">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-list-ul me-2"></i>Evaluations</span>
+                                    <button class="btn btn-sm btn-outline-primary" id="refreshEvalList">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="list-group list-group-flush" id="evaluationList">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="bi bi-code-square me-2"></i>Prompt Editor
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="promptInput" class="form-label">System Prompt</label>
+                                        <textarea class="form-control font-monospace" id="promptInput" rows="6" 
+                                                  placeholder="Enter your system prompt..."></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="userInput" class="form-label">User Input</label>
+                                        <textarea class="form-control font-monospace" id="userInput" rows="4" 
+                                                  placeholder="Enter test input..."></textarea>
+                                    </div>
+                                    <button class="btn btn-primary w-100" id="runEvaluationBtn">
+                                        <i class="bi bi-play-fill me-2"></i>Run Evaluation
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Result Viewer -->
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="output-tab" data-bs-toggle="tab" 
+                                                    data-bs-target="#output" type="button" role="tab">
+                                                <i class="bi bi-file-text me-1"></i>Output
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="tests-tab" data-bs-toggle="tab" 
+                                                    data-bs-target="#tests" type="button" role="tab">
+                                                <i class="bi bi-check2-square me-1"></i>Tests
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="logs-tab" data-bs-toggle="tab" 
+                                                    data-bs-target="#logs" type="button" role="tab">
+                                                <i class="bi bi-terminal me-1"></i>Logs
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="judge-tab" data-bs-toggle="tab" 
+                                                    data-bs-target="#judge" type="button" role="tab">
+                                                <i class="bi bi-stars me-1"></i>LLM Judge
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" 
+                                                    data-bs-target="#compare" type="button" role="tab">
+                                                <i class="bi bi-box-arrow-in-right me-1"></i>Compare
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="output" role="tabpanel">
+                                            <div id="outputContent" class="result-content">
+                                                <div class="text-center text-muted py-5">
+                                                    <i class="bi bi-play-circle fs-1"></i>
+                                                    <p class="mt-3">Run an evaluation to see results</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tests" role="tabpanel">
+                                            <div id="testsContent" class="result-content">
+                                                <!-- Test results populated by JS -->
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="logs" role="tabpanel">
+                                            <div id="logsContent" class="result-content">
+                                                <pre class="font-monospace small mb-0"></pre>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="judge" role="tabpanel">
+                                            <div id="judgeContent" class="result-content">
+                                                <!-- LLM Judge scores populated by JS -->
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="compare" role="tabpanel">
+                                            <div id="compareContent" class="result-content">
+                                                <div class="mb-3">
+                                                    <h6 class="mb-3">Select Models to Compare</h6>
+                                                    <div class="row g-2" id="modelSelection"></div>
+                                                </div>
+                                                <div class="d-flex gap-2 mb-3">
+                                                    <button class="btn btn-primary flex-fill" id="runComparisonBtn">
+                                                        <i class="bi bi-play-fill me-2"></i>Run Comparison
+                                                    </button>
+                                                    <button class="btn btn-outline-secondary" id="exportComparisonBtn">
+                                                        <i class="bi bi-download"></i>
+                                                    </button>
+                                                </div>
+                                                <div id="comparisonResults">
+                                                    <div class="text-center text-muted py-5">
+                                                        <i class="bi bi-box-arrow-in-right fs-1"></i>
+                                                        <p class="mt-3">Select models and run comparison</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Metadata & Filters -->
+                        <div class="col-lg-3">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="bi bi-funnel me-2"></i>Filters
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="projectFilter" class="form-label">Project</label>
+                                        <select class="form-select" id="projectFilter">
+                                            <option value="">All Projects</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="statusFilter" class="form-label">Status</label>
+                                        <select class="form-select" id="statusFilter">
+                                            <option value="">All Status</option>
+                                            <option value="passed">Passed</option>
+                                            <option value="failed">Failed</option>
+                                            <option value="running">Running</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modelFilter" class="form-label">Model</label>
+                                        <select class="form-select" id="modelFilter">
+                                            <option value="">All Models</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-sm btn-secondary w-100" id="clearFiltersBtn">
+                                        Clear Filters
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="bi bi-info-circle me-2"></i>Metadata
+                                </div>
+                                <div class="card-body" id="metadataContent">
+                                    <p class="text-muted small">Select an evaluation to view metadata</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner Overlay -->
+    <div class="spinner-overlay d-none" id="loadingSpinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Evaluations Logic -->
+    <script src="evaluations.js"></script>
+</body>
+</html>

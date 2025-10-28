@@ -1,0 +1,468 @@
+{
+  "projects": [
+    {
+      "id": "proj-001",
+      "name": "Customer Support Bot",
+      "description": "Evaluating conversational AI for customer queries",
+      "created_at": "2024-01-15T10:30:00Z",
+      "model": "gpt-4-turbo"
+    },
+    {
+      "id": "proj-002",
+      "name": "Code Generation Assistant",
+      "description": "Testing code completion and generation quality",
+      "created_at": "2024-01-20T14:20:00Z",
+      "model": "claude-3-opus"
+    },
+    {
+      "id": "proj-003",
+      "name": "Medical Q&A System",
+      "description": "Healthcare information retrieval evaluation",
+      "created_at": "2024-02-01T09:15:00Z",
+      "model": "gpt-4"
+    }
+  ],
+  "datasets": [
+    {
+      "id": "ds-001",
+      "name": "Customer Support Q&A v1",
+      "description": "Collection of 500 customer support conversations",
+      "row_count": 500,
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z",
+      "format": "json",
+      "size_bytes": 245678,
+      "columns": ["question", "expected_answer", "category", "priority"],
+      "source": "manual_upload",
+      "metadata": {
+        "version": "1.0",
+        "language": "en",
+        "domain": "customer_support"
+      }
+    },
+    {
+      "id": "ds-002",
+      "name": "Code Generation Test Cases",
+      "description": "Programming problems and expected solutions",
+      "row_count": 250,
+      "created_at": "2024-01-20T14:22:00Z",
+      "updated_at": "2024-02-10T11:20:00Z",
+      "format": "jsonl",
+      "size_bytes": 512340,
+      "columns": ["problem_description", "expected_code", "language", "difficulty"],
+      "source": "github",
+      "metadata": {
+        "version": "2.1",
+        "languages": ["python", "javascript", "go"],
+        "domain": "programming"
+      }
+    },
+    {
+      "id": "ds-003",
+      "name": "Medical FAQs",
+      "description": "Common medical questions and answers",
+      "row_count": 1200,
+      "created_at": "2024-02-01T09:15:00Z",
+      "updated_at": "2024-02-15T16:45:00Z",
+      "format": "csv",
+      "size_bytes": 892456,
+      "columns": ["question", "answer", "category", "verified"],
+      "source": "url",
+      "metadata": {
+        "version": "1.5",
+        "language": "en",
+        "domain": "healthcare",
+        "verified_by": "medical_professionals"
+      }
+    },
+    {
+      "id": "ds-004",
+      "name": "Sentiment Analysis Training Set",
+      "description": "Product reviews with sentiment labels",
+      "row_count": 5000,
+      "created_at": "2024-02-10T13:00:00Z",
+      "updated_at": "2024-02-10T13:00:00Z",
+      "format": "json",
+      "size_bytes": 1245890,
+      "columns": ["review_text", "sentiment", "rating", "product_category"],
+      "source": "manual_upload",
+      "metadata": {
+        "version": "1.0",
+        "sentiments": ["positive", "negative", "neutral"],
+        "domain": "ecommerce"
+      }
+    },
+    {
+      "id": "ds-005",
+      "name": "Legal Document Summaries",
+      "description": "Legal contracts and their summaries",
+      "row_count": 150,
+      "created_at": "2024-02-12T10:30:00Z",
+      "updated_at": "2024-02-12T10:30:00Z",
+      "format": "jsonl",
+      "size_bytes": 3456789,
+      "columns": ["document_text", "summary", "document_type", "jurisdiction"],
+      "source": "github",
+      "metadata": {
+        "version": "1.0",
+        "language": "en",
+        "domain": "legal",
+        "confidential": false
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "eval-001",
+      "project_id": "proj-001",
+      "name": "Baseline GPT-4 Test",
+      "status": "passed",
+      "model": "gpt-4-turbo",
+      "created_at": "2024-02-10T15:45:00Z",
+      "duration_ms": 3420,
+      "total_tests": 12,
+      "passed_tests": 11,
+      "prompt": "You are a helpful customer support assistant. Answer user questions politely and accurately.",
+      "user_input": "How do I reset my password?",
+      "output": "To reset your password:\n1. Go to the login page\n2. Click 'Forgot Password'\n3. Enter your email address\n4. Check your email for a reset link\n5. Follow the link and create a new password\n\nIf you need further assistance, please contact support@example.com",
+      "metadata": {
+        "temperature": 0.7,
+        "max_tokens": 500,
+        "dataset": "customer-support-v1"
+      }
+    },
+    {
+      "id": "eval-002",
+      "project_id": "proj-002",
+      "name": "Python Function Generation",
+      "status": "failed",
+      "model": "claude-3-opus",
+      "created_at": "2024-02-11T11:20:00Z",
+      "duration_ms": 5120,
+      "total_tests": 8,
+      "passed_tests": 6,
+      "prompt": "Generate clean, well-documented Python code based on user requirements.",
+      "user_input": "Create a function to calculate Fibonacci numbers",
+      "output": "def fibonacci(n):\n    \"\"\"Calculate the nth Fibonacci number.\"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)",
+      "metadata": {
+        "temperature": 0.3,
+        "max_tokens": 1000,
+        "dataset": "code-gen-v2"
+      }
+    },
+    {
+      "id": "eval-003",
+      "project_id": "proj-001",
+      "name": "Refund Policy Query",
+      "status": "running",
+      "model": "gpt-4-turbo",
+      "created_at": "2024-02-12T09:30:00Z",
+      "duration_ms": null,
+      "total_tests": 10,
+      "passed_tests": null,
+      "prompt": "You are a helpful customer support assistant. Answer user questions politely and accurately.",
+      "user_input": "What is your refund policy?",
+      "output": null,
+      "metadata": {
+        "temperature": 0.7,
+        "max_tokens": 500,
+        "dataset": "customer-support-v1"
+      }
+    },
+    {
+      "id": "eval-001",
+      "name": "Customer Support - GPT-4 Baseline",
+      "project_id": "proj-001",
+      "dataset_id": "ds-001",
+      "model": "gpt-4",
+      "status": "passed",
+      "created_at": "2024-02-15T10:30:00Z",
+      "duration_ms": 2340,
+      "output": "Thank you for contacting our support team. I understand you're having issues with your account login. Let me help you resolve this...",
+      "prompt": "You are a helpful customer support assistant. Always be polite, professional, and provide clear solutions.",
+      "user_input": "I can't log into my account. It says my password is incorrect but I'm sure it's right.",
+      "total_tests": 12,
+      "passed_tests": 11,
+      "metadata": {
+        "temperature": 0.7,
+        "max_tokens": 500,
+        "dataset": "ds-001"
+      }
+    },
+    {
+      "id": "eval-002",
+      "name": "Code Gen - Claude 3 Sonnet",
+      "project_id": "proj-002",
+      "dataset_id": "ds-002",
+      "model": "claude-3-sonnet",
+      "status": "passed",
+      "created_at": "2024-02-16T14:22:00Z",
+      "duration_ms": 3120,
+      "output": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\n# Test cases\nprint(fibonacci(10))  # Output: 55",
+      "prompt": "You are an expert programmer. Generate clean, efficient, and well-documented code.",
+      "user_input": "Write a Python function to calculate Fibonacci numbers recursively.",
+      "total_tests": 8,
+      "passed_tests": 8,
+      "metadata": {
+        "temperature": 0.3,
+        "max_tokens": 1000,
+        "dataset": "ds-002"
+      }
+    },
+    {
+      "id": "eval-003",
+      "name": "Medical Q&A - GPT-3.5",
+      "project_id": "proj-003",
+      "dataset_id": "ds-003",
+      "model": "gpt-3.5-turbo",
+      "status": "failed",
+      "created_at": "2024-02-17T09:15:00Z",
+      "duration_ms": 1890,
+      "output": "Headaches can have various causes including stress, dehydration, lack of sleep...",
+      "prompt": "You are a medical information assistant. Provide accurate health information but always recommend consulting healthcare professionals.",
+      "user_input": "What could cause frequent headaches?",
+      "total_tests": 15,
+      "passed_tests": 10,
+      "metadata": {
+        "temperature": 0.5,
+        "max_tokens": 800,
+        "dataset": "ds-003"
+      }
+    },
+    {
+      "id": "eval-004",
+      "name": "Customer Support - Claude 3 Opus",
+      "project_id": "proj-001",
+      "dataset_id": "ds-001",
+      "model": "claude-3-opus",
+      "status": "passed",
+      "created_at": "2024-02-18T11:45:00Z",
+      "duration_ms": 2890,
+      "output": "I'm sorry to hear you're experiencing login difficulties. Let's troubleshoot this together:\n\n1. First, try resetting your password...",
+      "prompt": "You are a helpful customer support assistant. Always be polite, professional, and provide clear solutions.",
+      "user_input": "I can't log into my account. It says my password is incorrect but I'm sure it's right.",
+      "total_tests": 12,
+      "passed_tests": 12,
+      "metadata": {
+        "temperature": 0.7,
+        "max_tokens": 500,
+        "dataset": "ds-001"
+      }
+    },
+    {
+      "id": "eval-005",
+      "name": "Sentiment Analysis - GPT-4",
+      "project_id": "proj-001",
+      "dataset_id": "ds-004",
+      "model": "gpt-4",
+      "status": "running",
+      "created_at": "2024-02-20T15:30:00Z",
+      "duration_ms": 0,
+      "output": "",
+      "prompt": "Analyze the sentiment of the following text and classify it as positive, negative, or neutral.",
+      "user_input": "The product quality is excellent but shipping took forever!",
+      "total_tests": 20,
+      "passed_tests": 0,
+      "metadata": {
+        "temperature": 0.2,
+        "max_tokens": 100,
+        "dataset": "ds-004"
+      }
+    }
+  ],
+  "test_results": {
+    "eval-001": [
+      {
+        "test_name": "Contains Password Reset Steps",
+        "status": "passed",
+        "message": "Output contains required password reset instructions",
+        "execution_time_ms": 12
+      },
+      {
+        "test_name": "Polite Tone",
+        "status": "passed",
+        "message": "Response maintains professional and polite tone",
+        "execution_time_ms": 8
+      },
+      {
+        "test_name": "Contact Information",
+        "status": "passed",
+        "message": "Includes support contact information",
+        "execution_time_ms": 5
+      },
+      {
+        "test_name": "No Harmful Content",
+        "status": "passed",
+        "message": "Output is safe and appropriate",
+        "execution_time_ms": 15
+      }
+    ],
+    "eval-002": [
+      {
+        "test_name": "Valid Python Syntax",
+        "status": "passed",
+        "message": "Code is syntactically correct",
+        "execution_time_ms": 45
+      },
+      {
+        "test_name": "Includes Docstring",
+        "status": "passed",
+        "message": "Function has proper documentation",
+        "execution_time_ms": 8
+      },
+      {
+        "test_name": "Performance Test",
+        "status": "failed",
+        "message": "Recursive implementation is inefficient for large n",
+        "execution_time_ms": 120
+      },
+      {
+        "test_name": "Edge Cases",
+        "status": "failed",
+        "message": "Missing handling for negative inputs",
+        "execution_time_ms": 22
+      }
+    ],
+    "eval-001": [
+      {
+        "test_name": "Politeness Check",
+        "status": "passed",
+        "message": "Response demonstrates appropriate politeness",
+        "execution_time_ms": 145
+      },
+      {
+        "test_name": "Solution Provided",
+        "status": "passed",
+        "message": "Response includes actionable solution",
+        "execution_time_ms": 120
+      },
+      {
+        "test_name": "No Harmful Content",
+        "status": "passed",
+        "message": "Response contains no harmful content",
+        "execution_time_ms": 98
+      },
+      {
+        "test_name": "Follows Brand Voice",
+        "status": "failed",
+        "message": "Response doesn't include company name",
+        "execution_time_ms": 110
+      }
+    ],
+    "eval-002": [
+      {
+        "test_name": "Code Syntax Valid",
+        "status": "passed",
+        "message": "Generated code has valid Python syntax",
+        "execution_time_ms": 234
+      },
+      {
+        "test_name": "Includes Comments",
+        "status": "passed",
+        "message": "Code includes helpful comments",
+        "execution_time_ms": 89
+      },
+      {
+        "test_name": "Correct Output",
+        "status": "passed",
+        "message": "Code produces expected output",
+        "execution_time_ms": 456
+      }
+    ],
+    "eval-003": [
+      {
+        "test_name": "Medical Accuracy",
+        "status": "failed",
+        "message": "Missing some common causes",
+        "execution_time_ms": 178
+      },
+      {
+        "test_name": "Disclaimer Present",
+        "status": "passed",
+        "message": "Includes medical disclaimer",
+        "execution_time_ms": 92
+      },
+      {
+        "test_name": "Professional Tone",
+        "status": "passed",
+        "message": "Maintains professional medical tone",
+        "execution_time_ms": 115
+      }
+    ]
+  },
+  "llm_judge_scores": {
+    "eval-001": {
+      "accuracy": 9.2,
+      "helpfulness": 9.5,
+      "conciseness": 8.7,
+      "safety": 10.0,
+      "overall": 9.35,
+      "feedback": "Excellent response with clear step-by-step instructions. Very helpful for users. Could be slightly more concise."
+    },
+    "eval-002": {
+      "accuracy": 8.5,
+      "code_quality": 7.8,
+      "documentation": 9.0,
+      "efficiency": 6.5,
+      "overall": 7.95,
+      "feedback": "Code is correct but uses inefficient recursive approach. Documentation is good. Consider memoization or iterative solution."
+    },
+    "eval-003": {
+      "overall": 8.5,
+      "helpfulness": 9.0,
+      "accuracy": 8.5,
+      "coherence": 9.0,
+      "professionalism": 8.0,
+      "feedback": "The response is helpful and professional. Provides clear troubleshooting steps. Could improve by mentioning specific security measures."
+    },
+    "eval-002": {
+      "overall": 9.2,
+      "code_quality": 9.5,
+      "documentation": 8.5,
+      "efficiency": 9.0,
+      "correctness": 10.0,
+      "feedback": "Excellent code generation. Clean implementation with proper documentation. Consider adding complexity analysis."
+    },
+    "eval-003": {
+      "overall": 7.5,
+      "accuracy": 7.0,
+      "completeness": 7.5,
+      "safety": 8.5,
+      "clarity": 8.0,
+      "feedback": "Good general information but lacks depth in certain areas. Strong emphasis on consulting professionals, which is appropriate."
+    }
+  },
+  "logs": { 
+    "eval-001": "[2024-02-10T15:45:12Z] Starting evaluation eval-001\n[2024-02-10T15:45:12Z] Loading model: gpt-4-turbo\n[2024-02-10T15:45:13Z] Sending prompt to API...\n[2024-02-10T15:45:16Z] Received response (3420ms)\n[2024-02-10T15:45:16Z] Running test suite (12 tests)\n[2024-02-10T15:45:17Z] Test 1/12: PASSED - Contains Password Reset Steps\n[2024-02-10T15:45:17Z] Test 2/12: PASSED - Polite Tone\n[2024-02-10T15:45:17Z] Test 3/12: PASSED - Contact Information\n[2024-02-10T15:45:17Z] Test 4/12: PASSED - No Harmful Content\n[2024-02-10T15:45:18Z] Evaluation completed: 11/12 tests passed",
+    "eval-002": "[2024-02-11T11:20:15Z] Starting evaluation eval-002\n[2024-02-11T11:20:15Z] Loading model: claude-3-opus\n[2024-02-11T11:20:16Z] Sending prompt to API...\n[2024-02-11T11:20:21Z] Received response (5120ms)\n[2024-02-11T11:20:21Z] Running test suite (8 tests)\n[2024-02-11T11:20:22Z] Test 1/8: PASSED - Valid Python Syntax\n[2024-02-11T11:20:22Z] Test 2/8: PASSED - Includes Docstring\n[2024-02-11T11:20:24Z] Test 3/8: FAILED - Performance Test (Inefficient algorithm)\n[2024-02-11T11:20:24Z] Test 4/8: FAILED - Edge Cases (Missing negative input handling)\n[2024-02-11T11:20:25Z] Evaluation completed: 6/8 tests passed",
+    "eval-001": "[2024-02-15 10:30:00] Starting evaluation eval-001\n[2024-02-15 10:30:00] Model: gpt-4\n[2024-02-15 10:30:01] Prompt loaded: 156 characters\n[2024-02-15 10:30:01] User input loaded: 89 characters\n[2024-02-15 10:30:02] API call initiated\n[2024-02-15 10:30:04] Response received: 245 tokens\n[2024-02-15 10:30:04] Running test suite...\n[2024-02-15 10:30:04] Test 1/12: Politeness Check - PASSED\n[2024-02-15 10:30:04] Test 2/12: Solution Provided - PASSED\n[2024-02-15 10:30:04] Test 3/12: No Harmful Content - PASSED\n[2024-02-15 10:30:04] Test 4/12: Follows Brand Voice - FAILED\n[2024-02-15 10:30:04] Evaluation completed: 11/12 tests passed",
+    "eval-002": "[2024-02-16 14:22:00] Starting evaluation eval-002\n[2024-02-16 14:22:00] Model: claude-3-sonnet\n[2024-02-16 14:22:01] Dataset: Code Generation Test Cases\n[2024-02-16 14:22:01] Prompt loaded: 98 characters\n[2024-02-16 14:22:02] API call initiated\n[2024-02-16 14:22:05] Response received: 134 tokens\n[2024-02-16 14:22:05] Code validation started\n[2024-02-16 14:22:05] Syntax check: PASSED\n[2024-02-16 14:22:05] Execution test: PASSED\n[2024-02-16 14:22:05] All tests passed: 8/8",
+    "eval-003": "[2024-02-17 09:15:00] Starting evaluation eval-003\n[2024-02-17 09:15:00] Model: gpt-3.5-turbo\n[2024-02-17 09:15:01] Loading medical dataset...\n[2024-02-17 09:15:01] API call initiated\n[2024-02-17 09:15:03] Response received: 189 tokens\n[2024-02-17 09:15:03] Running medical accuracy checks\n[2024-02-17 09:15:03] WARNING: Some medical causes not mentioned\n[2024-02-17 09:15:03] Test results: 10/15 passed\n[2024-02-17 09:15:03] Evaluation completed with warnings"
+  },
+  "models": [
+    {
+      "id": "gpt-4-turbo",
+      "name": "GPT-4 Turbo",
+      "provider": "OpenAI",
+      "context_length": 128000
+    },
+    {
+      "id": "gpt-4",
+      "name": "GPT-4",
+      "provider": "OpenAI",
+      "context_length": 8192
+    },
+    {
+      "id": "claude-3-opus",
+      "name": "Claude 3 Opus",
+      "provider": "Anthropic",
+      "context_length": 200000
+    },
+    {
+      "id": "claude-3-sonnet",
+      "name": "Claude 3 Sonnet",
+      "provider": "Anthropic",
+      "context_length": 200000
+    }
+  ]
+}

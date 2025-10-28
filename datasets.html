@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datasets - Mavvrik EvalLab</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Styles - cache bust -->
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+    <!-- Top Navbar - Exact copy from index.html -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+            <!-- Add sidebar toggle button in navbar for mobile -->
+            <button class="btn btn-sm btn-outline-light me-2 d-md-none" type="button" id="mobileSidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="logo.png" 
+                     alt="CloudWiz Logo" 
+                     class="me-2 navbar-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="bi bi-robot fs-3 me-2" style="display:none;"></i>
+                <span class="fw-bold">EvalLab</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-label="Notifications">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-5 me-1"></i>
+                            <span>User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row g-0" id="mainRow">
+            <!-- Left Sidebar - Exact structure from index.html -->
+            <div class="sidebar-wrapper" id="sidebarWrapper">
+                <nav id="sidebar" class="bg-light sidebar">
+                    <div class="position-sticky pt-3">
+                        <!-- Add collapse/expand button inside sidebar -->
+                        <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+                            <h6 class="mb-0 text-muted sidebar-title" id="sidebarTitle">Navigation</h6>
+                            <button class="btn btn-sm btn-outline-secondary" id="sidebarCollapseBtn" 
+                                    aria-label="Toggle sidebar"
+                                    title="Collapse Sidebar">
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                        </div>
+                        
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">
+                                    <i class="bi bi-folder me-2"></i>
+                                    <span class="nav-text">Projects</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="datasets.html" aria-current="page">
+                                    <i class="bi bi-database me-2"></i>
+                                    <span class="nav-text">Datasets</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="evaluations.html">
+                                    <i class="bi bi-clipboard-check me-2"></i>
+                                    <span class="nav-text">Evaluations</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html?section=models">
+                                    <i class="bi bi-cpu me-2"></i>
+                                    <span class="nav-text">Models</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html?section=settings">
+                                    <i class="bi bi-gear me-2"></i>
+                                    <span class="nav-text">Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <hr class="my-3 sidebar-divider">
+
+                        <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">
+                            <span>Recent Datasets</span>
+                        </h6>
+                        <ul class="nav flex-column" id="recentDatasets">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content-wrapper" id="mainContentWrapper">
+                <main class="px-md-4" id="mainContent">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2" id="pageTitle">Datasets</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <!-- Updated toggle button with better icon -->
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-2" id="toggleSidebar"
+                                    aria-label="Toggle sidebar" title="Toggle Sidebar (Ctrl+B)">
+                                <i class="bi bi-layout-sidebar-inset"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Import Dataset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dataset List -->
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-database me-2"></i>All Datasets</span>
+                            <button class="btn btn-sm btn-outline-primary" id="refreshDatasetList">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="datasetList" class="table-responsive">
+                                <!-- Populated by JS -->
+                                <div class="text-center text-muted py-5">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-3">Loading datasets...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Dataset</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#uploadTab">
+                                <i class="bi bi-upload me-2"></i>Upload File
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#githubTab">
+                                <i class="bi bi-github me-2"></i>GitHub
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#urlTab">
+                                <i class="bi bi-link-45deg me-2"></i>URL
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mt-3">
+                        <!-- Upload Tab -->
+                        <div class="tab-pane fade show active" id="uploadTab">
+                            <div class="mb-3">
+                                <label for="fileUpload" class="form-label">Select File</label>
+                                <input type="file" class="form-control" id="fileUpload" 
+                                       accept=".csv,.json,.jsonl,.xlsx">
+                                <small class="text-muted">Supported: CSV, JSON, JSONL, Excel</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="datasetName" class="form-label">Dataset Name</label>
+                                <input type="text" class="form-control" id="datasetName" 
+                                       placeholder="e.g., Customer Support Q&A">
+                            </div>
+                            <div class="mb-3">
+                                <label for="datasetDesc" class="form-label">Description</label>
+                                <textarea class="form-control" id="datasetDesc" rows="2"
+                                          placeholder="Brief description of the dataset"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- GitHub Tab -->
+                        <div class="tab-pane fade" id="githubTab">
+                            <div class="mb-3">
+                                <label for="githubUrl" class="form-label">Repository URL</label>
+                                <input type="text" class="form-control" id="githubUrl" 
+                                       placeholder="https://github.com/user/repo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="githubBranch" class="form-label">Branch/Tag</label>
+                                <input type="text" class="form-control" id="githubBranch" 
+                                       placeholder="main" value="main">
+                            </div>
+                            <div class="mb-3">
+                                <label for="githubPath" class="form-label">File Path</label>
+                                <input type="text" class="form-control" id="githubPath" 
+                                       placeholder="data/evaluations.json">
+                            </div>
+                            <div class="mb-3">
+                                <label for="githubToken" class="form-label">Access Token (optional)</label>
+                                <input type="password" class="form-control" id="githubToken" 
+                                       placeholder="ghp_xxxx... (required for private repos)">
+                                <small class="text-muted">
+                                    <a href="https://github.com/settings/tokens" target="_blank">
+                                        Generate token
+                                    </a>
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- URL Tab -->
+                        <div class="tab-pane fade" id="urlTab">
+                            <div class="mb-3">
+                                <label for="datasetUrl" class="form-label">Dataset URL</label>
+                                <input type="text" class="form-control" id="datasetUrl" 
+                                       placeholder="https://example.com/dataset.json">
+                            </div>
+                            <div class="mb-3">
+                                <label for="urlAuth" class="form-label">Authorization Header (optional)</label>
+                                <input type="text" class="form-control" id="urlAuth" 
+                                       placeholder="Bearer token...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Area -->
+                    <div id="previewArea" class="mt-3 d-none">
+                        <h6>Preview (first 5 rows)</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm" id="previewTable">
+                                <!-- Populated by JS -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-primary" id="previewBtn">Preview</button>
+                    <button type="button" class="btn btn-primary" id="importBtn">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner Overlay -->
+    <div class="spinner-overlay d-none" id="loadingSpinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Datasets Logic -->
+    <script src="datasets.js"></script>
+    <script>
+        // Sidebar toggle functionality - matching index.html
+        const toggleSidebar = () => {
+            const sidebar = document.getElementById('sidebarWrapper');
+            const mainContent = document.getElementById('mainContentWrapper');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        };
+
+        document.getElementById('toggleSidebar')?.addEventListener('click', toggleSidebar);
+
+        document.getElementById('sidebarCollapseBtn')?.addEventListener('click', function() {
+            toggleSidebar();
+            const icon = this.querySelector('i');
+            const sidebar = document.getElementById('sidebarWrapper');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.replace('bi-chevron-left', 'bi-chevron-right');
+                this.setAttribute('title', 'Expand Sidebar');
+            } else {
+                icon.classList.replace('bi-chevron-right', 'bi-chevron-left');
+                this.setAttribute('title', 'Collapse Sidebar');
+            }
+        });
+
+        document.getElementById('mobileSidebarToggle')?.addEventListener('click', function() {
+            document.getElementById('sidebarWrapper').classList.toggle('show');
+        });
+
+        // Keyboard shortcut for sidebar toggle (Ctrl+B)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'b') {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        });
+    </script>
+</body>
+</html>
